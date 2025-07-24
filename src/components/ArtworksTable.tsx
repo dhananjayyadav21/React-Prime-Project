@@ -30,7 +30,7 @@ const ArtworksTable: React.FC = () => {
 
   const overlayRef = useRef<OverlayPanel>(null);
 
-  // Fetch artworks from API
+  // Fetch data from API ------------------------------
   const fetchArtworks = async (page: number) => {
     try {
       setLoading(true);
@@ -47,7 +47,7 @@ const ArtworksTable: React.FC = () => {
     }
   };
 
-  // Load data when pagination changes
+  // Load data when pagination changes ------------------------------
   useEffect(() => {
     const currentPage = first / rows + 1;
     fetchArtworks(currentPage);
@@ -58,12 +58,12 @@ const ArtworksTable: React.FC = () => {
     setRows(event.rows);
   };
 
-  // Handle user selecting rows manually
+  // Handle user selecting rows manually ------------------------------
   const handleSelectionChange = (e: { value: Artwork[] }) => {
     setSelectedRows(e.value);
   };
 
-  // Auto-select rows after user enters a target count
+  // Auto-select rows after user enters a target count ------------------------------
   const handleAutoSelect = () => {
     if (targetCount > 0) {
       let updatedSelection = [...selectedRows];
@@ -78,7 +78,7 @@ const ArtworksTable: React.FC = () => {
     overlayRef.current?.hide();
   };
 
-  // Continue auto-select when user navigates pages
+  // Continue auto-select when user navigates pages ------------------------------
   useEffect(() => {
     if (targetCount > 0 && selectedRows.length < targetCount) {
       let updatedSelection = [...selectedRows];
@@ -92,7 +92,7 @@ const ArtworksTable: React.FC = () => {
     }
   }, [artworks]);
 
-  // Custom column header for dropdown input
+  // Custom column header for dropdown input ------------------------------
   const dropdownHeader = (
     <>
       <Button
@@ -132,18 +132,15 @@ const ArtworksTable: React.FC = () => {
         selectionMode={"multiple"}
         responsiveLayout="scroll"
       >
-        {/* Selection Checkbox Column */}
         <Column selectionMode="multiple" headerStyle={{ width: "3rem" }} />
 
-        {/* Dropdown column */}
         <Column
           header={dropdownHeader}
           style={{ width: "4rem", textAlign: "center" }}
         />
 
-        {/* Data Columns */}
-        <Column field="title" header="Title" sortable />
-        <Column field="place_of_origin" header="Place of Origin" sortable />
+        <Column field="title" header="Title" />
+        <Column field="place_of_origin" header="Place of Origin" />
         <Column field="artist_display" header="Artist" />
         <Column field="inscriptions" header="Inscriptions" />
         <Column field="date_start" header="Start Date" />
@@ -157,7 +154,7 @@ const ArtworksTable: React.FC = () => {
         onPageChange={handlePageChange}
       />
 
-      {/* Selected Rows Panel */}
+      {/*--- Selected Rows Panel ------------------------------*/}
       <div
         style={{ marginTop: "20px", border: "1px solid #ccc", padding: "10px" }}
       >
@@ -166,8 +163,8 @@ const ArtworksTable: React.FC = () => {
         </h3>
         {selectedRows.length > 0 ? (
           selectedRows.map((item) => (
-            <div key={item.id}>
-              {item.title} ({item.place_of_origin})
+            <div style={{ padding: "10px 0" }} key={item.id}>
+              {item.title} - ({item.place_of_origin})
             </div>
           ))
         ) : (
