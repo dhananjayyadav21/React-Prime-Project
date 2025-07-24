@@ -1,4 +1,4 @@
-## ✅ Features
+## Features
 
 - Fetch data from **API**
 - Select rows manually or auto-select target rows across pages
@@ -14,7 +14,7 @@
 
 ---
 
-## ⚡ Installation
+## Installation
 
 ```bash
 npm install primereact primeicons axios
